@@ -1,0 +1,326 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Library API",
+        "version": "1.0.1",
+        "description": "API for managing authors and books."
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080/api",
+            "description": "Local development server"
+        },
+        {
+            "url": "http://librar2-api.onrender.com",
+            "description": "Render production server"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Authors",
+            "description": "Authors  management operations"},
+            {"name": "Books", "description": "Books management operations"}
+        ],
+    
+    "paths": {
+        "/authors": {
+            "get": {
+                "summary": "Get all authors",
+                "tags": ["Authors"],
+                "responses": {
+                    "200": {
+                        "description": "A list of authors"},
+                    "500": {
+                        "description": "Server error"}
+                }
+            },
+           
+            "post": {
+                "summary": "Create a new author",
+                "tags": ["Authors"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                               "type": "object",
+                               "required": ["firstname", "lastname", "birthDate"],
+                                 "properties": {
+                                      "firstName": {"type": "string"},
+                                      "lastName": {"type": "string"},
+                                      "birthDate": {"type": "string", "format": "date"}
+                                 }
+                            },
+                            "example": {
+                                "firstName": "Emma",
+                                "lastName": "Smith",
+                                "birthDate": "2000-10-25"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Author created successfully"},
+                    "400": {
+                        "description": "Invalid input"},
+                    "500": {
+                        "description": "Server error"}
+                }
+            }
+        },
+
+        "/authors/{authorId}": {
+            "get": {
+                "summary": "Get author by ID",
+                "tags": ["Authors"],
+                "parameters": [
+                    {
+                        "name": "authorId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"}
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Author details"},
+                    "404": {
+                        "description": "Author not found"},
+                    "500": {
+                        "description": "Server error"}
+                }
+            },
+            "put": {
+                "summary": "Update author by ID",
+                "tags": ["Authors"],
+                "parameters": [
+                    {
+                        "name": "authorId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"}
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                               "type": "object",
+                               "required": ["firstName", "lastName", "birthDate"],
+                               "properties": {
+                                      "firstName": {"type": "string"},
+                                      "lastName": {"type": "string"},
+                                      "birthDate": {"type": "string", "format": "date"}
+                                 }
+                            },
+                            "example": {
+                                "firstName": "Emma",
+                                "lastName": "Johnson",
+                                "birthDate": "2000-10-25"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Author updated successfully"},
+                    "400": {
+                        "description": "Invalid input"},
+                    "404": {
+                        "description": "Author not found"},
+                    "500": {
+                        "description": "Server error"}
+                }
+            },
+            "delete": {
+                "summary": "Delete author by ID",
+                "tags": ["Authors"],
+                "parameters": [
+                    {
+                        "name": "authorId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"}
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Author deleted successfully"},
+                    "404": {
+                        "description": "Author not found"},
+                    "500": {
+                        "description": "Server error"}
+                }
+            }
+        },
+
+         "/books": {
+            "get": {
+                "summary": "Get all books",
+                "tags": ["Books"],
+                "responses": {
+                    "200": {
+                        "description": "A list of books"},
+                    "500": {
+                        "description": "Server error"}
+                }
+            },
+            "post": {
+                "summary": "Create a new book",
+                "tags": ["Books"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                               "type": "object",
+                               "required": ["title", "authorId", "year", "genre", "pages", "publisher", "isbn", "place", "language"],
+                               "properties": {
+                                      "title": {"type": "string"},
+                                      "authorId": {"type": "integer"},
+                                      "year": {"type": "integer"},
+                                      "genre": {"type": "string"},
+                                        "pages": {"type": "integer"},
+                                        "publisher": {"type": "string"},
+                                        "isbn": {"type": "integer"},
+                                        "place": {"type": "string"},
+                                        "language": {"type": "string"}  
+                                 }
+                            },
+                            "example": {
+                                "title": "The Great Adventure",
+                                "authorId": 12345,
+                                "year": 2022,
+                                "genre": "Adventure",
+                                "pages": 350,
+                                "publisher": "Adventure Press",
+                                "isbn": 9781234567890,
+                                "place": "New York",
+                                "language": "English"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Book created successfully"},
+                    "400": {
+                        "description": "Invalid input"},
+                    "500": {
+                        "description": "Server error"}
+                }
+            }
+        },
+            "/books/{id}": {
+            "get": {
+                "summary": "Get book by ID",
+                "tags": ["Books"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"}
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Book details"},
+                    "404": {
+                        "description": "Book not found"},
+                    "500": {
+                        "description": "Server error"}
+                }
+            }
+        },
+        
+
+        "/books/{updateid}": {
+            "put": {
+                "summary": "Update book by ID",
+                "tags": ["Books"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"}
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                               "type": "object",
+                               "properties": {
+                                      "title": {"type": "string"},
+                                      "authorId": {"type": "integer"},
+                                      "year": {"type": "integer"},
+                                      "genre": {"type": "string"},
+                                        "pages": {"type": "integer"},
+                                        "publisher": {"type": "string"},
+                                        "isbn": {"type": "integer"},
+                                        "place": {"type": "string"},
+                                        "language": {"type": "string"}  
+                                 }
+                            },
+                            "example": {
+                                "title": "The Great Adventure - Updated",
+                                "authorId": "12345",
+                                "year": 2023,
+                                "genre": "Adventure",
+                                "pages": 400,
+                                "publisher": "Adventure Press",
+                                "isbn": 9781234567890,
+                                "place": "New York",
+                                "language": "English"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Book updated successfully"},
+                    "400": {
+                        "description": "Invalid input"},
+                    "404": {
+                        "description": "Book not found"},
+                    "500": {
+                        "description": "Server error"}
+                }
+            },
+            "delete": {
+                "summary": "Delete book by ID",
+                "tags": ["Books"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"}
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Book deleted successfully"},
+                    "404": {
+                        "description": "Book not found"},
+                    "500": {
+                        "description": "Server error"}
+                }
+            }
+        }
+    }
+}
+
+
+          
