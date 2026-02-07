@@ -7,11 +7,11 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8080/api",
+            "url": "http://localhost:8080",
             "description": "Local development server"
         },
         {
-            "url": "https://library2-api.onrender.com",
+            "url": "http://library2-api.onrender.com",
             "description": "Render production server"
         }
     ],
@@ -23,7 +23,7 @@
         ],
     
     "paths": {
-        "/api/authors": {
+        "/authors": {
             "get": {
                 "summary": "Get all authors",
                 "tags": ["Authors"],
@@ -159,7 +159,7 @@
             }
         },
 
-         "/api/books": {
+        "/api/books": {
             "get": {
                 "summary": "Get all books",
                 "tags": ["Books"],
@@ -216,7 +216,7 @@
                 }
             }
         },
-            "/books/{id}": {
+            "/api/books/{id}": {
             "get": {
                 "summary": "Get book by ID",
                 "tags": ["Books"],
@@ -241,7 +241,7 @@
         },
         
 
-            "/api/books/{id}": {
+            "/books/{id}": {
             "put": {
                 "summary": "Update book by ID",
                 "tags": ["Books"],
