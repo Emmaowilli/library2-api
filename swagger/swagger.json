@@ -241,7 +241,7 @@
         },
         
 
-        "/books/{updateid}": {
+            "/books/{Id}": {
             "put": {
                 "summary": "Update book by ID",
                 "tags": ["Books"],
