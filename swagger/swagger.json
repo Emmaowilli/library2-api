@@ -23,7 +23,7 @@
         ],
     
     "paths": {
-        "/authors": {
+        "/api/authors": {
             "get": {
                 "summary": "Get all authors",
                 "tags": ["Authors"],
@@ -159,7 +159,7 @@
             }
         },
 
-         "/books": {
+         "/api/books": {
             "get": {
                 "summary": "Get all books",
                 "tags": ["Books"],
@@ -241,7 +241,7 @@
         },
         
 
-            "/books/{Id}": {
+            "/api/books/{id}": {
             "put": {
                 "summary": "Update book by ID",
                 "tags": ["Books"],
