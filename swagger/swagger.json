@@ -11,7 +11,7 @@
             "description": "Local development server"
         },
         {
-            "url": "http://library2-api.onrender.com",
+            "url": "https://library2-api.onrender.com",
             "description": "Render production server"
         }
     ],
