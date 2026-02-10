@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
 app.use('/api-docs', swaggerui.serve, swaggerui.setup(swaggerDocument));
 app.use('/api/authors', require('./routes/authors'));
 app.use('/api/books', require('./routes/books'));
+app.use('/auth', require('./routes/auth'));
 
 const PORT = process.env.PORT || 8080;
 
