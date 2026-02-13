@@ -4,11 +4,24 @@ const cors = require('cors');
 const swaggerui = require('swagger-ui-express');
 const swaggerDocument = require('./swagger/swagger.json');
 const connectDB  = require('./db/connect');
+const passport = require('passport');
+require('./config/passport');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+const session = require('express-session');
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: false
+    })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('/', (req, res) => {
     res.send('Welcome to the library API');
@@ -29,4 +42,4 @@ connectDB().then(() => {
     console.error('Failed to connect to the MongonDB:', error.message);
     process.exit(1);
 });
-       
+        

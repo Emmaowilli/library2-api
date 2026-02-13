@@ -264,176 +264,163 @@
         },
 
         "/api/books": {
-            "get": {
-                "summary": "Get all books",
-                "tags": ["Books"],
-                 "security": [
-                    {"bearerAuth": [] }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "A list of books"},
-                    "500": {
-                        "description": "Server error"}
-                }
-            },
-            "post": {
-                "summary": "Create a new book",
-                "tags": ["Books"],
-                 "security": [
-                    {"bearerAuth": [] }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                               "type": "object",
-                               "required": ["title", "authorId", "year", "genre", "pages", "publisher", "isbn", "place", "language"],
-                               "properties": {
-                                      "title": {"type": "string"},
-                                      "authorId": {"type": "integer"},
-                                      "year": {"type": "integer"},
-                                      "genre": {"type": "string"},
-                                        "pages": {"type": "integer"},
-                                        "publisher": {"type": "string"},
-                                        "isbn": {"type": "integer"},
-                                        "place": {"type": "string"},
-                                        "language": {"type": "string"}  
-                                 }
-                            },
-                            "example": {
-                                "title": "The Great Adventure",
-                                "authorId": 12345,
-                                "year": 2022,
-                                "genre": "Adventure",
-                                "pages": 350,
-                                "publisher": "Adventure Press",
-                                "isbn": 9781234567890,
-                                "place": "New York",
-                                "language": "English"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Book created successfully"},
-                    "400": {
-                        "description": "Invalid input"},
-                    "500": {
-                        "description": "Server error"}
-                }
-            }
-        },
-            "/api/books/{id}": {
-            "get": {
-                "summary": "Get book by ID",
-                "tags": ["Books"],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"}
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Book details"},
-                    "404": {
-                        "description": "Book not found"},
-                    "500": {
-                        "description": "Server error"}
-                }
-            }
-        },
-        
-
-            "/books/{id}": {
-            "put": {
-                "summary": "Update book by ID",
-                "tags": ["Books"],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"}
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                               "type": "object",
-                               "properties": {
-                                      "title": {"type": "string"},
-                                      "authorId": {"type": "integer"},
-                                      "year": {"type": "integer"},
-                                      "genre": {"type": "string"},
-                                        "pages": {"type": "integer"},
-                                        "publisher": {"type": "string"},
-                                        "isbn": {"type": "integer"},
-                                        "place": {"type": "string"},
-                                        "language": {"type": "string"}  
-                                 }
-                            },
-                            "example": {
-                                "title": "The Great Adventure - Updated",
-                                "authorId": "12345",
-                                "year": 2023,
-                                "genre": "Adventure",
-                                "pages": 400,
-                                "publisher": "Adventure Press",
-                                "isbn": 9781234567890,
-                                "place": "New York",
-                                "language": "English"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Book updated successfully"},
-                    "400": {
-                        "description": "Invalid input"},
-                    "404": {
-                        "description": "Book not found"},
-                    "500": {
-                        "description": "Server error"}
-                }
-            },
-            "delete": {
-                "summary": "Delete book by ID",
-                "tags": ["Books"],
-                "security": [
-                    { "bearerAuth": [] }
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"}
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "Book deleted successfully"},
-                    "404": {
-                        "description": "Book not found"},
-                    "500": {
-                        "description": "Server error"}
-                }
-            }
-        }
+  "get": {
+    "summary": "Get all books",
+    "tags": ["Books"],
+    "security": [{ "bearerAuth": [] }],
+    "responses": {
+      "200": { "description": "A list of books" },
+      "500": { "description": "Server error" }
     }
+  },
+  "post": {
+    "summary": "Create a new book",
+    "tags": ["Books"],
+    "security": [{ "bearerAuth": [] }],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "title",
+              "authorId",
+              "year",
+              "genre",
+              "pages",
+              "publisher",
+              "isbn",
+              "place",
+              "language"
+            ],
+            "properties": {
+              "title": { "type": "string" },
+              "authorId": { "type": "string" },
+              "year": { "type": "integer" },
+              "genre": { "type": "string" },
+              "pages": { "type": "integer" },
+              "publisher": { "type": "string" },
+              "isbn": { "type": "string" },
+              "place": { "type": "string" },
+              "language": { "type": "string" }
+            }
+          },
+          "example": {
+            "title": "The Great Adventure",
+            "authorId": "12345",
+            "year": 2022,
+            "genre": "Adventure",
+            "pages": 350,
+            "publisher": "Adventure Press",
+            "isbn": "9781234567890",
+            "place": "New York",
+            "language": "English"
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": { "description": "Book created successfully" },
+      "400": { "description": "Invalid input" },
+      "500": { "description": "Server error" }
+    }
+  }
+},
+
+"/api/books/{id}": {
+  "get": {
+    "summary": "Get book by ID",
+    "tags": ["Books"],
+    "security": [{ "bearerAuth": [] }],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" },
+        "description": "Book ID"
+      }
+    ],
+    "responses": {
+      "200": { "description": "Book details" },
+      "404": { "description": "Book not found" },
+      "500": { "description": "Server error" }
+    }
+  },
+
+  "put": {
+    "summary": "Update book by ID",
+    "tags": ["Books"],
+    "security": [{ "bearerAuth": [] }],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" },
+        "description": "Book ID"
+      }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "authorId": { "type": "string" },
+              "year": { "type": "integer" },
+              "genre": { "type": "string" },
+              "pages": { "type": "integer" },
+              "publisher": { "type": "string" },
+              "isbn": { "type": "string" },
+              "place": { "type": "string" },
+              "language": { "type": "string" }
+            }
+          },
+          "example": {
+            "title": "The Great Adventure - Updated",
+            "authorId": "12345",
+            "year": 2023,
+            "genre": "Adventure",
+            "pages": 400,
+            "publisher": "Adventure Press",
+            "isbn": "9781234567890",
+            "place": "New York",
+            "language": "English"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": { "description": "Book updated successfully" },
+      "400": { "description": "Invalid input" },
+      "404": { "description": "Book not found" },
+      "500": { "description": "Server error" }
+    }
+  },
+
+  "delete": {
+    "summary": "Delete book by ID",
+    "tags": ["Books"],
+    "security": [{ "bearerAuth": [] }],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" },
+        "description": "Book ID"
+      }
+    ],
+    "responses": {
+      "204": { "description": "Book deleted successfully" },
+      "404": { "description": "Book not found" },
+      "500": { "description": "Server error" }
+    }
+  }
 }
-
-
-          
+}
+}

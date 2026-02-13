@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
@@ -34,6 +35,23 @@ router.post('/register', [
     }
 }
 );
+router.get(
+    '/google',
+    passport.authenticate('google', {scope: ['profile', 'email']})
+);
+router.get(
+    '/google/callback',
+    passport.authenticate('google', {failurRedirect: '/'}),
+    (req, res) => {
+        res.redirect('/api-docs');
+    }
+);
+
+router.get('/logout', (req, res)=>{
+    req.logout(() => {
+        res.send('logged out');
+    });
+});
 
 router.post(
     '/login', 
