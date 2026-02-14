@@ -48,7 +48,7 @@ exports.authorRules = () => [
     
     body('isbn')
     .isISBN(13)
-    .withMessage('Valid ISBN-13 is required'),
+    .withMessage('ISBN is required'),
 
     body('place')
     .trim()

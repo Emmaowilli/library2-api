@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Emmaowilli/library2-api#readme",
   "dependencies": {
     "bcryptjs": "^3.0.3",
+    "cor": "^0.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
@@ -29,6 +30,8 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.1.5",
     "passport": "^0.7.0",
+    "passport-github": "^1.1.0",
+    "passport-github2": "^0.1.12",
     "passport-google-oauth20": "^2.0.0",
     "swagger-ui-express": "^5.0.1"
   }
