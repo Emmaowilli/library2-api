@@ -395,6 +395,346 @@
           "500": { "description": "Server error" }
         }
       }
+    },
+"/api/publishers": {
+ "get": {
+ "summary": "Get all publishers",
+ "tags": ["Publishers"],
+"security": [{ "bearerAuth": [] }],
+ "responses": {
+ "200": {
+ "description": "A list of publishers"
+},
+"401": {
+ "description": "Unauthorized - invalid or missing token"
+ },
+ "500": {
+ "description": "Server error"
+ }
+ }
+ },
+ "post": {
+ "summary": "Create a new publisher",
+ "tags": ["Publishers"],
+ "security": [{ "bearerAuth": [] }],
+ "requestBody": {
+ "required": true,
+"content": {
+ "application/json": {
+ "schema": {
+ "type": "object",
+ "required": ["name"],
+ "properties": {
+ "name": {
+ "type": "string",
+ "description": "Publisher name (unique)"
+ },
+ "foundedYear": {
+ "type": "integer",
+ "description": "Year the publisher was founded"
+ },
+ "country": {
+ "type": "string",
+ "description": "Country of origin"
+},
+ "website": {
+ "type": "string",
+ "format": "uri",
+ "description": "Publisher website URL"
+ },
+ "description": {
+ "type": "string",
+ "description": "Brief description of the publisher"
+ },
+"isActive": {
+ "type": "boolean",
+ "default": true,
+ "description": "Whether the publisher is currently active"
+ }
+ }
+ },
+"example": {
+  "name": "Uganda Publishing House - Updated",
+  "foundedYear": 2000,
+  "country": "Uganda",
+  "website": "http://www.uph.co.ug",
+  "description": "Long-established Ugandan publisher specializing in textbooks, academic works and local languages",
+  "isActive": true
+}
+}
+}
+},
+"responses": {
+ "201": {
+ "description": "Publisher created successfully"
+},
+"400": {
+ "description": "Invalid input or validation failed"
+},
+ "401": {
+ "description": "Unauthorized - invalid or missing token"
+ },
+"500": {
+ "description": "Server error"
+}
+}
+}
+},
+"/api/publishers/{id}": {
+ "get": {
+ "summary": "Get publisher by ID",
+ "tags": ["Publishers"],
+"security": [{ "bearerAuth": [] }],
+"parameters": [
+{
+ "name": "id",
+ "in": "path",
+ "required": true,
+ "schema": {
+"type": "string"
+ },
+ "description": "Publisher ID"
+ }
+],
+"responses": {
+ "200": {
+"description": "Publisher details"
+},
+"401": {
+ "description": "Unauthorized - invalid or missing token"
+},
+ "404": {
+ "description": "Publisher not found"
+ },
+"500": {
+"description": "Server error"
+}
+ }
+},
+"put": {
+"summary": "Update publisher by ID",
+ "tags": ["Publishers"],
+"security": [{ "bearerAuth": [] }],
+ "parameters": [
+{
+"name": "id",
+ "in": "path",
+ "required": true,
+ "schema": {
+ "type": "string"
+ },
+ "description": "Publisher ID"
+ }
+],
+ "requestBody": {
+"required": true,
+ "content": {
+ "application/json": {
+ "schema": {
+ "type": "object",
+ "properties": {
+ "name": { "type": "string" },
+ "foundedYear": { "type": "integer" },
+ "country": { "type": "string" },
+"website": { "type": "string", "format": "uri" },
+ "description": { "type": "string" },
+"isActive": { "type": "boolean" }
+ }
+ },
+"example": {
+  "name": "Uganda Publishing House - Updated",
+  "foundedYear": 2000,
+  "country": "Uganda",
+  "website": "http://www.uph.co.ug",
+  "description": "Long-established Ugandan publisher specializing in textbooks, academic works and local languages",
+  "isActive": true
+}
+}
+}
+},
+"responses": {
+"200": {
+ "description": "Publisher updated successfully"
+},
+ "400": {
+"description": "Invalid input"
+},
+"401": {
+"description": "Unauthorized - invalid or missing token"
+},
+"404": {
+ "description": "Publisher not found"
+},
+"500": {
+ "description": "Server error"
+}
+}
+},
+ "delete": {
+"summary": "Delete publisher by ID",
+ "tags": ["Publishers"],
+ "security": [{ "bearerAuth": [] }],
+ "parameters": [
+ {
+"name": "id",
+"in": "path",
+ "required": true,
+"schema": {
+"type": "string"
+ },
+"description": "Publisher ID"
+}
+],
+"responses": {
+"204": {
+ "description": "Publisher deleted successfully"
+},
+ "401": {
+ "description": "Unauthorized - invalid or missing token"
+},
+ "404": {
+ "description": "Publisher not found"
+},
+ "500": {
+ "description": "Server error"
+ }
+}
+}
+},
+"/api/genres": {
+  "get": {
+    "summary": "Get all genres",
+    "tags": ["Genres"],
+    "security": [{ "bearerAuth": [] }],
+    "responses": {
+      "200": { "description": "A list of genres" },
+      "401": { "description": "Unauthorized - invalid or missing token" },
+      "500": { "description": "Server error" }
+    }
+  },
+  "post": {
+    "summary": "Create a new genre",
+    "tags": ["Genres"],
+    "security": [{ "bearerAuth": [] }],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": { "type": "string" },
+              "description": { "type": "string" },
+              "popularityScore": { "type": "number" },
+              "parentGenre": { "type": "string" },
+              "booksCount": { "type": "integer" }
+            }
+          },
+          "example": {
+            "name": "African Literature",
+            "description": "Works by African authors or about African themes",
+            "popularityScore": 85,
+            "parentGenre": "Fiction",
+            "booksCount": 120
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": { "description": "Genre created successfully" },
+      "400": { "description": "Invalid input" },
+      "401": { "description": "Unauthorized - invalid or missing token" },
+      "500": { "description": "Server error" }
     }
   }
+},
+"/api/genres/{id}": {
+  "get": {
+    "summary": "Get genre by ID",
+    "tags": ["Genres"],
+    "security": [{ "bearerAuth": [] }],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" },
+        "description": "Genre ID"
+      }
+    ],
+    "responses": {
+      "200": { "description": "Genre details" },
+      "401": { "description": "Unauthorized - invalid or missing token" },
+      "404": { "description": "Genre not found" },
+      "500": { "description": "Server error" }
+    }
+  },
+  "put": {
+    "summary": "Update genre by ID",
+    "tags": ["Genres"],
+    "security": [{ "bearerAuth": [] }],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" },
+        "description": "Genre ID"
+      }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "description": { "type": "string" },
+              "popularityScore": { "type": "number" },
+              "parentGenre": { "type": "string" },
+              "booksCount": { "type": "integer" }
+            }
+          },
+          "example": {
+            "name": "African Literature - Updated",
+            "description": "Updated description for African literature genre",
+            "popularityScore": 90,
+            "parentGenre": "Fiction",
+            "booksCount": 150
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": { "description": "Genre updated successfully" },
+      "400": { "description": "Invalid input" },
+      "401": { "description": "Unauthorized - invalid or missing token" },
+      "404": { "description": "Genre not found" },
+      "500": { "description": "Server error" }
+    }
+  },
+  "delete": {
+    "summary": "Delete genre by ID",
+    "tags": ["Genres"],
+    "security": [{ "bearerAuth": [] }],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" },
+        "description": "Genre ID"
+      }
+    ],
+    "responses": {
+      "204": { "description": "Genre deleted successfully" },
+      "401": { "description": "Unauthorized - invalid or missing token" },
+      "404": { "description": "Genre not found" },
+      "500": { "description": "Server error" }
+    }
+  }
+}
+}
 }

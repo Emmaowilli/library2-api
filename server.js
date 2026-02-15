@@ -58,6 +58,8 @@ app.get('/', (req, res) => {
 
 app.use('/api/authors', require('./routes/authors'));
 app.use('/api/books', require('./routes/books'));
+app.use('/api/publishers', require('./routes/publishers'));
+app.use('/api/genres', require('./routes/genres'));
 
 const ensureAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) return next();

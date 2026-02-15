@@ -47,7 +47,8 @@ exports.authorRules = () => [
     .withMessage('Publisher is required'),
     
     body('isbn')
-    .isISBN(13)
+    .trim()
+    .notEmpty()
     .withMessage('ISBN is required'),
 
     body('place')
@@ -60,7 +61,31 @@ exports.authorRules = () => [
     .notEmpty()
     .withMessage('Language is required'),
 ];
-
+exports.publisherRules = () => [
+  body('name').trim().notEmpty().withMessage('Name is required'),
+  body('foundedYear').optional().isInt({ min: 1400 }).withMessage('Invalid founded year'),
+  
+];
+exports.genreRules = () => [
+  body('name')
+    .trim()
+    .notEmpty()
+    .withMessage('Genre name is required'),
+  body('description')
+    .optional()
+    .trim(),
+  body('popularityScore')
+    .optional()
+    .isFloat({ min: 0, max: 100 })
+    .withMessage('Popularity score must be between 0 and 100'),
+  body('parentGenre')
+    .optional()
+    .trim(),
+  body('booksCount')
+    .optional()
+    .isInt({ min: 0 })
+    .withMessage('Books count must be a non-negative integer')
+];
 exports.validate = (req, res, next) => {
   const errors = validationResult(req);
 
@@ -75,4 +100,3 @@ exports.validate = (req, res, next) => {
 };
 
     
-

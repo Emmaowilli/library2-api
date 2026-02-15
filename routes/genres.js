@@ -1,0 +1,4 @@
+const express = require('express'); const router = express.Router();
+const ensureAuthenticated = require('../middleware/ensureAuthenticated'); const { genreRules, validate } = require('../middleware/validate'); const genresController = require('../controllers/genresController');
+router.get('/', ensureAuthenticated, genresController.getAllGenres); router.get('/:id', ensureAuthenticated, genresController.getGenreById); router.post('/', ensureAuthenticated, genreRules(), validate, genresController.createGenre); router.put('/:id', ensureAuthenticated, genreRules(), validate, genresController.updateGenre); router.delete('/:id', ensureAuthenticated, genresController.deleteGenre);
+module.exports = router;

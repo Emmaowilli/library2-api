@@ -14,4 +14,3 @@ router.put('/:id',ensureAuthenticated, authorRules(), authorRules(), validate,  
 router.delete('/:id',ensureAuthenticated,  authorsController.deleteAuthor);
 
 module.exports = router;
-
