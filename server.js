@@ -75,4 +75,16 @@ connectDB().then(() => {
     console.error('Failed to connect to the MongonDB:', error.message);
     process.exit(1);
 });
+
+if (process.env.NODE_ENV !== 'test') {
+  connectDB().then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  }).catch((error) => {
+    console.error('Failed to connect to MongoDB:', error.message);
+    process.exit(1);
+  });
+}
         
+module.exports = app;
