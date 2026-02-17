@@ -67,24 +67,19 @@ const ensureAuthenticated = (req, res, next) => {
 };
 const PORT = process.env.PORT || 8080;
 
-connectDB().then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
-}).catch((error) => {
-    console.error('Failed to connect to the MongonDB:', error.message);
-    process.exit(1);
-});
-
-if (process.env.NODE_ENV !== 'test') {
-  connectDB().then(() => {
+async function startServer() {
+    try {
+        await connectDB();
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });
-  }).catch((error) => {
+  } catch (error) {
     console.error('Failed to connect to MongoDB:', error.message);
     process.exit(1);
-  });
+  };
 }
-        
+if (process.env.NODE_ENV !== 'test') {
+    startServer();
+}
+    
 module.exports = app;

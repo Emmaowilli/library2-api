@@ -2,6 +2,7 @@ const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
 const User = require('../models/User');
 
+if (process.env.NODE_ENV !== 'test') {
 passport.use(
     new GitHubStrategy(
       {
@@ -38,3 +39,4 @@ passport.use(
     done(err);
    }
  });
+}
